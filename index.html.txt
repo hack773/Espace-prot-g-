@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Protégé</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #071124 0%, #0b1d3a 50%, #040914 100%);
+            min-height: 100vh;
+            color: #f3f4f6;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-between p-4 sm:p-6">
+
+    <div class="w-full max-w-md mx-auto pt-6">
+        <!-- Badge Espace Protégé -->
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-950/80 border border-blue-800/50 text-blue-300 text-xs font-medium mb-6 shadow-inner">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            ESPACE PROTÉGÉ
+        </div>
+
+        <!-- VUE FORMULAIRE -->
+        <div id="view-form">
+            <h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-3">La sécurité avant tout</h1>
+            <p class="text-gray-400 text-sm mb-6 leading-relaxed">Saisissez ci-dessous vos informations, puis passez à l'étape suivante.</p>
+
+            <div class="bg-blue-950/40 border border-blue-900/60 rounded-2xl p-4 sm:p-5 shadow-xl backdrop-blur-md mb-6">
+                <h2 class="font-semibold text-white mb-1">Vos informations</h2>
+                <p class="text-gray-400 text-xs mb-4">Indiquez les informations demandées le plus précisément possible.</p>
+                
+                <textarea id="userInput" rows="6" maxlength="2000" oninput="updateCounter(this)" placeholder="Entrez vos informations ici..." class="w-full bg-slate-900/80 border border-blue-900/50 rounded-xl p-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 resize-none transition-colors"></textarea>
+                
+                <div class="flex justify-between items-center mt-2 text-xs text-gray-500">
+                    <span id="charCount">0 / 2000</span>
+                </div>
+            </div>
+
+            <button onclick="submitData()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-3.5 px-4 rounded-xl shadow-lg transition-all duration-200 flex items-center justify-center gap-2">
+                Suivant
+            </button>
+
+            <!-- Lien discret vers les réponses -->
+            <div class="mt-8 text-center">
+                <button onclick="openAdmin()" class="text-xs text-blue-400 hover:text-blue-300 transition-colors inline-flex items-center gap-1">
+                    Voir les réponses reçues →
+                </button>
+            </div>
+
+            <div class="mt-6 flex items-start gap-2 text-xs text-gray-400 bg-slate-900/40 p-3 rounded-xl border border-slate-800/50">
+                <svg class="w-4 h-4 text-gray-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <p>Vos informations ne sont visibles que par le propriétaire de cette page. Ne saisissez jamais de mot de passe ni de numéro de carte bancaire.</p>
+            </div>
+        </div>
+
+        <!-- VUE SUCCÈS -->
+        <div id="view-success" class="hidden text-center py-12">
+            <div class="w-16 h-16 bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">✓</div>
+            <h2 class="text-2xl font-bold mb-2">Informations transmises</h2>
+            <p class="text-gray-400 text-sm mb-6">Vos données ont été enregistrées en toute sécurité dans l'espace protégé.</p>
+            <button onclick="resetForm()" class="text-sm text-blue-400 hover:underline">← Envoyer une autre réponse</button>
+        </div>
+
+        <!-- VUE ADMIN (PROTÉGÉE) -->
+        <div id="view-admin" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold">Réponses reçues</h1>
+                <button onclick="backToForm()" class="text-xs text-blue-400 hover:underline">← Retour</button>
+            </div>
+
+            <div id="admin-auth" class="bg-blue-950/40 border border-blue-900/60 rounded-2xl p-5 mb-4">
+                <p class="text-sm text-gray-300 mb-3">Entrez le mot de passe administrateur :</p>
+                <input type="password" id="adminPasswordInput" placeholder="Mot de passe" class="w-full bg-slate-900 border border-blue-900 rounded-xl p-3 text-sm text-white mb-3 focus:outline-none focus:border-blue-500">
+                <button onclick="verifyAdmin()" class="w-full bg-blue-600 hover:bg-
